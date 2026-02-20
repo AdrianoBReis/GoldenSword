@@ -1,0 +1,81 @@
+[gd_scene load_steps=10 format=3 uid="uid://d3darena"]
+
+[ext_resource type="Script" path="res://scripts/game.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="2"]
+[ext_resource type="Script" path="res://scripts/spawner.gd" id="3"]
+
+[sub_resource type="ProceduralSkyMaterial" id="1"]
+sky_horizon_color = Color(0.72, 0.84, 1, 1)
+ground_horizon_color = Color(0.45, 0.55, 0.73, 1)
+
+[sub_resource type="Sky" id="2"]
+sky_material = SubResource("1")
+
+[sub_resource type="Environment" id="3"]
+background_mode = 2
+sky = SubResource("2")
+ambient_light_source = 3
+ambient_light_sky_contribution = 0.4
+ssao_enabled = true
+
+[sub_resource type="BoxMesh" id="4"]
+size = Vector3(40, 1, 40)
+
+[sub_resource type="BoxShape3D" id="5"]
+size = Vector3(40, 1, 40)
+
+[sub_resource type="CapsuleShape3D" id="6"]
+radius = 0.4
+height = 1.2
+
+[sub_resource type="CapsuleMesh" id="7"]
+radius = 0.4
+mid_height = 1.2
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("3")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866026, -0.482964, 0.12941, 0, 0.258818, 0.965926, -0.5, -0.836516, 0.224144, 0, 12, 0)
+shadow_enabled = true
+light_energy = 1.4
+
+[node name="Floor" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("5")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("4")
+
+[node name="Player" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 8)
+script = ExtResource("2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+shape = SubResource("6")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player"]
+mesh = SubResource("7")
+
+[node name="CameraPivot" type="Node3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Player/CameraPivot"]
+current = true
+
+[node name="Spawner" type="Node3D" parent="."]
+script = ExtResource("3")
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="Info" type="Label" parent="HUD"]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 620.0
+offset_bottom = 120.0
+theme_override_font_sizes/font_size = 28
+text = "Carregando..."

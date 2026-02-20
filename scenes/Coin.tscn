@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://coin"]
+
+[ext_resource type="Script" path="res://scripts/coin.gd" id="1"]
+
+[sub_resource type="CylinderMesh" id="1"]
+radius = 0.35
+height = 0.12
+
+[sub_resource type="CylinderShape3D" id="2"]
+radius = 0.36
+height = 0.2
+
+[node name="Coin" type="Area3D"]
+script = ExtResource("1")
+collision_layer = 2
+collision_mask = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("1")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+light_energy = 0.4
+omni_range = 4.0
+light_color = Color(0.3, 0.8, 1, 1)
