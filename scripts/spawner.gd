@@ -38,6 +38,7 @@ func _spawn_targets() -> void:
 		var target := TARGET_SCENE.instantiate()
 		add_child(target)
 		targets.append(target)
+		target.set_player(player_ref)
 		target.reset_target(_random_position(80.0, _collect_positions(targets, target), target_min_spacing, target_start_min_distance, 160))
 		target.connect("destroyed", _on_target_destroyed.bind(target))
 
