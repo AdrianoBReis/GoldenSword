@@ -143,6 +143,7 @@ offset_left = 20.0
 offset_top = 20.0
 offset_right = 780.0
 offset_bottom = 110.0
+mouse_filter = 2
 theme_override_font_sizes/font_size = 30
 text = "Carregando..."
 

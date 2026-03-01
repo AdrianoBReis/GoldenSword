@@ -12,7 +12,7 @@ extends Node2D
 @onready var coin_sfx: AudioStreamPlayer = $CoinSfx
 @onready var enemy_destroyed_sfx: AudioStreamPlayer = $EnemyDestroyedSfx
 
-@export var victory_score := 1000
+@export var victory_score := 10000
 @export var victory_duration := 10.0
 
 var score := 0
@@ -30,9 +30,12 @@ func _ready() -> void:
 	spawner.connect("target_hit", _on_target_hit)
 	player.connect("shot_fired", _on_shot_fired)
 	if background_music.stream != null:
+		if not background_music.finished.is_connected(_on_background_music_finished):
+			background_music.finished.connect(_on_background_music_finished)
 		background_music.play()
 	victory_layer.visible = false
 	victory_prompt.visible = false
+	victory_prompt.text = "Toque para fechar" if OS.has_feature("mobile") else "Pressione qualquer tecla para fechar"
 	_update_hud("Colete energia e destrua drones neon!")
 
 func _process(delta: float) -> void:
@@ -59,8 +62,8 @@ func _process(delta: float) -> void:
 		return
 
 	_update_hud(
-		"Tempo: %02d  Pontos: %d  Combo x%d\nWASD mover | Espaco dash | Mouse mirar/atirar"
-		% [int(ceil(time_left)), score, combo]
+		"Tempo: %02d  Pontos: %d  Combo x%d\n%s"
+		% [int(ceil(time_left)), score, combo, _get_controls_hint()]
 	)
 
 func _input(event: InputEvent) -> void:
@@ -139,6 +142,12 @@ func _stop_gameplay_music() -> void:
 	if background_music.playing:
 		background_music.stop()
 
+func _on_background_music_finished() -> void:
+	if victory_active:
+		return
+	if background_music.stream != null:
+		background_music.play()
+
 func _is_exit_input(event: InputEvent) -> bool:
 	if event is InputEventKey:
 		return event.pressed and not event.echo
@@ -147,3 +156,8 @@ func _is_exit_input(event: InputEvent) -> bool:
 	if event is InputEventScreenTouch:
 		return event.pressed
 	return false
+
+func _get_controls_hint() -> String:
+	if OS.has_feature("mobile"):
+		return "Toque esquerdo mover | Toque direito mirar/atirar | Toque duplo esquerdo dash"
+	return "WASD mover | Espaco dash | Mouse mirar/atirar"
