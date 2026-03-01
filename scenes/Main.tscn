@@ -5,6 +5,10 @@
 [ext_resource type="Script" uid="uid://b4t1yqcy1jmm4" path="res://scripts/spawner.gd" id="3"]
 [ext_resource type="AudioStream" uid="uid://bgo6q6k653y37" path="res://CORIN.ogg" id="4_vcsgt"]
 [ext_resource type="Texture2D" uid="uid://na2bfy18kssa" path="res://cor.webp" id="5_c01mt"]
+[ext_resource type="AudioStream" uid="uid://cbufwiguqatds" path="res://tiro.ogg" id="5_jlsqs"]
+[ext_resource type="AudioStream" uid="uid://csxa2oqg6nexq" path="res://fundo.ogg" id="5_q8u5g"]
+[ext_resource type="AudioStream" uid="uid://ba1a22q5hv1jf" path="res://moeda.ogg" id="6_q8u5g"]
+[ext_resource type="AudioStream" uid="uid://fomms8kjdq26" path="res://cabum.ogg" id="7_lhr70"]
 
 [sub_resource type="Gradient" id="2"]
 offsets = PackedFloat32Array(0, 0.45, 1)
@@ -114,6 +118,23 @@ script = ExtResource("3")
 
 [node name="VictoryMusic" type="AudioStreamPlayer" parent="." unique_id=834508811]
 stream = ExtResource("4_vcsgt")
+volume_db = 3.888
+
+[node name="BackgroundMusic" type="AudioStreamPlayer" parent="." unique_id=110428593]
+stream = ExtResource("5_q8u5g")
+volume_db = -11.177
+
+[node name="ShotSfx" type="AudioStreamPlayer" parent="." unique_id=138264101]
+stream = ExtResource("5_jlsqs")
+volume_db = -36.131
+
+[node name="CoinSfx" type="AudioStreamPlayer" parent="." unique_id=161739420]
+stream = ExtResource("6_q8u5g")
+volume_db = -46.742
+
+[node name="EnemyDestroyedSfx" type="AudioStreamPlayer" parent="." unique_id=905273118]
+stream = ExtResource("7_lhr70")
+volume_db = -35.074
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=194444214]
 
