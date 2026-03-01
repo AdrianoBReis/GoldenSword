@@ -1,0 +1,123 @@
+[gd_scene load_steps=11 format=3 uid="uid://d3darena"]
+
+[ext_resource type="Script" path="res://scripts/game.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="2"]
+[ext_resource type="Script" path="res://scripts/spawner.gd" id="3"]
+
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(36, 36)
+
+[sub_resource type="Gradient" id="2"]
+offsets = PackedFloat32Array(0, 0.45, 1)
+colors = PackedColorArray(0.8, 0.95, 1, 0.45, 0.25, 0.7, 1, 0.25, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="3"]
+gradient = SubResource("2")
+width = 256
+height = 256
+fill = 1
+
+[sub_resource type="RectangleShape2D" id="4"]
+size = Vector2(1080, 16)
+
+[sub_resource type="RectangleShape2D" id="5"]
+size = Vector2(16, 600)
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.6, 0.62, 0.75, 1)
+
+[node name="Backdrop" type="ColorRect" parent="."]
+offset_left = -2000.0
+offset_top = -2000.0
+offset_right = 2000.0
+offset_bottom = 2000.0
+color = Color(0.03, 0.05, 0.11, 1)
+
+[node name="Arena" type="Node2D" parent="."]
+position = Vector2(640, 360)
+
+[node name="Fill" type="Polygon2D" parent="Arena"]
+polygon = PackedVector2Array(-540, -300, 540, -300, 540, 300, -540, 300)
+color = Color(0.06, 0.08, 0.16, 1)
+
+[node name="Frame" type="Polygon2D" parent="Arena"]
+polygon = PackedVector2Array(-548, -308, 548, -308, 548, 308, -548, 308, -540, 300, 540, 300, 540, -300, -540, -300)
+color = Color(0.1, 0.85, 1, 0.35)
+
+[node name="ArenaLight" type="PointLight2D" parent="Arena"]
+texture = SubResource("3")
+energy = 1.8
+scale = Vector2(6.5, 4.0)
+
+[node name="Walls" type="Node2D" parent="."]
+position = Vector2(640, 360)
+
+[node name="Top" type="StaticBody2D" parent="Walls"]
+position = Vector2(0, -308)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Top"]
+shape = SubResource("4")
+
+[node name="Bottom" type="StaticBody2D" parent="Walls"]
+position = Vector2(0, 308)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Bottom"]
+shape = SubResource("4")
+
+[node name="Left" type="StaticBody2D" parent="Walls"]
+position = Vector2(-548, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Left"]
+shape = SubResource("5")
+
+[node name="Right" type="StaticBody2D" parent="Walls"]
+position = Vector2(548, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Right"]
+shape = SubResource("5")
+
+[node name="Player" type="CharacterBody2D" parent="."]
+position = Vector2(640, 360)
+script = ExtResource("2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("1")
+
+[node name="Body" type="Polygon2D" parent="Player"]
+polygon = PackedVector2Array(24, 0, 6, 13, -14, 10, -20, 0, -14, -10, 6, -13)
+color = Color(0.65, 0.92, 1, 1)
+
+[node name="EngineGlow" type="Polygon2D" parent="Player"]
+polygon = PackedVector2Array(-20, 0, -34, 8, -34, -8)
+color = Color(0.15, 0.8, 1, 0.8)
+
+[node name="PointLight2D" type="PointLight2D" parent="Player"]
+texture = SubResource("3")
+energy = 2.2
+scale = Vector2(0.8, 0.8)
+color = Color(0.45, 0.9, 1, 1)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+current = true
+position_smoothing_enabled = true
+position_smoothing_speed = 8.0
+
+[node name="Spawner" type="Node2D" parent="."]
+position = Vector2(640, 360)
+script = ExtResource("3")
+
+[node name="Shots" type="Node2D" parent="."]
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="Info" type="Label" parent="HUD"]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 780.0
+offset_bottom = 110.0
+mouse_filter = 2
+theme_override_font_sizes/font_size = 30
+text = "Carregando..."

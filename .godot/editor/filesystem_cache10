@@ -1,0 +1,14 @@
+63f7b34db8d8cdea90c76aacccf841ec
+::res://::1772334386
+letras.txt::TextFile::-1::1772329108::0::1::::<><><>0<>0<><>::
+README.md::TextFile::-1::1772330211::0::1::::<><><>0<>0<><>::
+::res://scenes/::1772328561
+Coin.tscn::PackedScene::95077::1772330447::0::1::::<><><>0<>0<><>::res://scripts/coin.gd
+Main.tscn::PackedScene::200961553586::1772331074::0::1::::<><><>0<>0<><>::res://scripts/game.gd<>res://scripts/player.gd<>res://scripts/spawner.gd
+Target.tscn::PackedScene::863948315::1772330447::0::1::::<><><>0<>0<><>::res://scripts/target.gd
+::res://scripts/::1772328561
+coin.gd::GDScript::8547469619528720735::1772331666::0::1::::<>Area2D<><>0<>0<><>::
+game.gd::GDScript::4431653002113936657::1772330211::0::1::::<>Node2D<><>0<>0<><>::
+player.gd::GDScript::904849758089039206::1772332041::0::1::::<>CharacterBody2D<><>0<>0<><>::
+spawner.gd::GDScript::4462742671977595597::1772332534::0::1::::<>Node2D<><>0<>0<><>::
+target.gd::GDScript::4587494065586289541::1772330211::0::1::::<>Area2D<><>0<>0<><>::
